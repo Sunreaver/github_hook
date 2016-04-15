@@ -1,0 +1,4 @@
+github_hook
+*.DS_*
+*.log
+*.out
