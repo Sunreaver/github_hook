@@ -2,30 +2,60 @@ package mode
 
 // GithubHook github hook request的格式
 type GithubHook struct {
-	Hook struct {
-		Active bool `json:"active"`
-		Config struct {
-			ContentType string `json:"content_type"`
-			InsecureSsl string `json:"insecure_ssl"`
-			Secret      string `json:"secret"`
-			URL         string `json:"url"`
-		} `json:"config"`
-		CreatedAt    string   `json:"created_at"`
-		Events       []string `json:"events"`
-		ID           int      `json:"id"`
-		LastResponse struct {
-			Code    interface{} `json:"code"`
-			Message interface{} `json:"message"`
-			Status  string      `json:"status"`
-		} `json:"last_response"`
-		Name      string `json:"name"`
-		PingURL   string `json:"ping_url"`
-		TestURL   string `json:"test_url"`
-		Type      string `json:"type"`
-		UpdatedAt string `json:"updated_at"`
-		URL       string `json:"url"`
-	} `json:"hook"`
-	HookID     int `json:"hook_id"`
+	After   string      `json:"after"`
+	BaseRef interface{} `json:"base_ref"`
+	Before  string      `json:"before"`
+	Commits []struct {
+		Added  []string `json:"added"`
+		Author struct {
+			Email    string `json:"email"`
+			Name     string `json:"name"`
+			Username string `json:"username"`
+		} `json:"author"`
+		Committer struct {
+			Email    string `json:"email"`
+			Name     string `json:"name"`
+			Username string `json:"username"`
+		} `json:"committer"`
+		Distinct  bool     `json:"distinct"`
+		ID        string   `json:"id"`
+		Message   string   `json:"message"`
+		Modified  []string `json:"modified"`
+		Removed   []string `json:"removed"`
+		Timestamp string   `json:"timestamp"`
+		TreeID    string   `json:"tree_id"`
+		URL       string   `json:"url"`
+	} `json:"commits"`
+	Compare    string `json:"compare"`
+	Created    bool   `json:"created"`
+	Deleted    bool   `json:"deleted"`
+	Forced     bool   `json:"forced"`
+	HeadCommit struct {
+		Added  []interface{} `json:"added"`
+		Author struct {
+			Email    string `json:"email"`
+			Name     string `json:"name"`
+			Username string `json:"username"`
+		} `json:"author"`
+		Committer struct {
+			Email    string `json:"email"`
+			Name     string `json:"name"`
+			Username string `json:"username"`
+		} `json:"committer"`
+		Distinct  bool          `json:"distinct"`
+		ID        string        `json:"id"`
+		Message   string        `json:"message"`
+		Modified  []string      `json:"modified"`
+		Removed   []interface{} `json:"removed"`
+		Timestamp string        `json:"timestamp"`
+		TreeID    string        `json:"tree_id"`
+		URL       string        `json:"url"`
+	} `json:"head_commit"`
+	Pusher struct {
+		Email string `json:"email"`
+		Name  string `json:"name"`
+	} `json:"pusher"`
+	Ref        string `json:"ref"`
 	Repository struct {
 		ArchiveURL       string      `json:"archive_url"`
 		AssigneesURL     string      `json:"assignees_url"`
@@ -38,7 +68,7 @@ type GithubHook struct {
 		CompareURL       string      `json:"compare_url"`
 		ContentsURL      string      `json:"contents_url"`
 		ContributorsURL  string      `json:"contributors_url"`
-		CreatedAt        string      `json:"created_at"`
+		CreatedAt        int         `json:"created_at"`
 		DefaultBranch    string      `json:"default_branch"`
 		DeploymentsURL   string      `json:"deployments_url"`
 		Description      string      `json:"description"`
@@ -57,7 +87,7 @@ type GithubHook struct {
 		HasIssues        bool        `json:"has_issues"`
 		HasPages         bool        `json:"has_pages"`
 		HasWiki          bool        `json:"has_wiki"`
-		Homepage         interface{} `json:"homepage"`
+		Homepage         string      `json:"homepage"`
 		HooksURL         string      `json:"hooks_url"`
 		HTMLURL          string      `json:"html_url"`
 		ID               int         `json:"id"`
@@ -68,6 +98,7 @@ type GithubHook struct {
 		LabelsURL        string      `json:"labels_url"`
 		Language         string      `json:"language"`
 		LanguagesURL     string      `json:"languages_url"`
+		MasterBranch     string      `json:"master_branch"`
 		MergesURL        string      `json:"merges_url"`
 		MilestonesURL    string      `json:"milestones_url"`
 		MirrorURL        interface{} `json:"mirror_url"`
@@ -76,30 +107,16 @@ type GithubHook struct {
 		OpenIssues       int         `json:"open_issues"`
 		OpenIssuesCount  int         `json:"open_issues_count"`
 		Owner            struct {
-			AvatarURL         string `json:"avatar_url"`
-			EventsURL         string `json:"events_url"`
-			FollowersURL      string `json:"followers_url"`
-			FollowingURL      string `json:"following_url"`
-			GistsURL          string `json:"gists_url"`
-			GravatarID        string `json:"gravatar_id"`
-			HTMLURL           string `json:"html_url"`
-			ID                int    `json:"id"`
-			Login             string `json:"login"`
-			OrganizationsURL  string `json:"organizations_url"`
-			ReceivedEventsURL string `json:"received_events_url"`
-			ReposURL          string `json:"repos_url"`
-			SiteAdmin         bool   `json:"site_admin"`
-			StarredURL        string `json:"starred_url"`
-			SubscriptionsURL  string `json:"subscriptions_url"`
-			Type              string `json:"type"`
-			URL               string `json:"url"`
+			Email string `json:"email"`
+			Name  string `json:"name"`
 		} `json:"owner"`
 		Private         bool   `json:"private"`
 		PullsURL        string `json:"pulls_url"`
-		PushedAt        string `json:"pushed_at"`
+		PushedAt        int    `json:"pushed_at"`
 		ReleasesURL     string `json:"releases_url"`
 		Size            int    `json:"size"`
 		SSHURL          string `json:"ssh_url"`
+		Stargazers      int    `json:"stargazers"`
 		StargazersCount int    `json:"stargazers_count"`
 		StargazersURL   string `json:"stargazers_url"`
 		StatusesURL     string `json:"statuses_url"`
@@ -133,5 +150,4 @@ type GithubHook struct {
 		Type              string `json:"type"`
 		URL               string `json:"url"`
 	} `json:"sender"`
-	Zen string `json:"zen"`
 }
