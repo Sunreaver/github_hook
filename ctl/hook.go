@@ -11,15 +11,17 @@ import (
 func Hook(ctx *macaron.Context) {
 	luaStr := ""
 	repo := ctx.Params(":url")
-	if repo == "" {
+
+	if repo == "github_hook" {
+		luaStr = "./lua/hook.lua"
+	} else if repo == "warms" {
+		luaStr = "./lua/warm.lua"
+	} else {
 		ctx.JSON(200, map[string]interface{}{
 			"status": 200,
-			"msg":    "bad url",
+			"msg":    luaStr,
 		})
 		return
-	}
-	if repo == "github_hook" {
-		luaStr += "./lua/hook.lua"
 	}
 
 	go func(c string) {
