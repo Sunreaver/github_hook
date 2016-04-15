@@ -16,6 +16,8 @@ func Hook(ctx *macaron.Context) {
 		luaStr = "./lua/hook.lua"
 	} else if repo == "warms" {
 		luaStr = "./lua/warm.lua"
+	} else if repo == "myserver" {
+		luaStr = "./lua/my80server.lua"
 	} else {
 		ctx.JSON(200, map[string]interface{}{
 			"status": 200,
