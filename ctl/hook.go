@@ -19,7 +19,7 @@ func Hook(ctx *macaron.Context) {
 		return
 	}
 	if repo == "github_hook" {
-		luaStr += "./lua/github_hook.lua"
+		luaStr += "./lua/hook.lua"
 	}
 
 	go func(c string) {
