@@ -40,6 +40,7 @@ func Hook(ctx *macaron.Context) {
 			for _, item := range conf {
 				if item.Name == repo {
 					luaStr = item.DoLua
+					log.Println("Will do: ", luaStr)
 					break
 				}
 			}
@@ -52,9 +53,9 @@ func Hook(ctx *macaron.Context) {
 		}
 		cmd := exec.Command("lua", c)
 		if err := cmd.Run(); err == nil {
-			log.Println("OK: " + luaStr)
+			log.Println("OK: " + c)
 		} else {
-			log.Println("Faile: " + luaStr)
+			log.Println("Faile: " + c)
 			log.Println(err)
 		}
 	}(luaStr)
