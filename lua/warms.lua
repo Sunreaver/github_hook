@@ -49,8 +49,8 @@ function buildAndDo(fileNames)
 			exc[2] = "mv " .. string.sub(item, 0, string.len(item) - 3) .. " ~/Doc/bin/huaban/huaban_warm"
 		end
 		local result = ""
-		for i=0,table.maxn(exc) do
-			result = result .. exc[i] .. ";"
+		for i,it in pairs(exc) do
+			result = result .. it .. ";"
 		end
 		r = string.sub(result, 0, string.len(result)-1)
 		os.execute(r)
