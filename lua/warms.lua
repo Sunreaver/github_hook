@@ -62,6 +62,6 @@ end
 -- do
 gitpull()
 local fns = attrdir(DIR_WARMS)
-assert(type(fns) == "table")
+-- assert(type(fns) == "table")
 buildAndDo(fns)
 
