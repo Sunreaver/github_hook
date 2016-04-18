@@ -2,6 +2,7 @@ package ctl
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"os/exec"
 	"strings"
@@ -16,6 +17,7 @@ func Hook(ctx *macaron.Context) {
 	luaStr := ""
 	repo := ctx.Params(":url")
 
+	// github_hook 特殊处理
 	if repo == "github_hook" {
 		req, e := ctx.Req.Body().Bytes()
 		if e == nil {
@@ -28,16 +30,17 @@ func Hook(ctx *macaron.Context) {
 		} else {
 			log.Println(e)
 		}
-	} else if repo == "warms" {
-		luaStr = "./lua/warm.lua"
-	} else if repo == "myserver" {
-		luaStr = "./lua/my80server.lua"
 	} else {
-		ctx.JSON(200, map[string]interface{}{
-			"status": 200,
-			"msg":    luaStr,
-		})
-		return
+		data, e := ioutil.ReadFile("github_hook.conf")
+		if e == nil {
+			conf = mode.MakeConf(data)
+			for _, item := range conf {
+				if item.Name == repo {
+					luaStr = item.DoLua
+					break
+				}
+			}
+		}
 	}
 
 	go func(c string) {
