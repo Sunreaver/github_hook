@@ -64,9 +64,9 @@ func Hook(ctx *macaron.Context) {
 			log.Println("OK: " + c)
 		} else {
 			log.Println("Faile: " + c)
-			log.Println("Log: ", out.String())
 			log.Println(err)
 		}
+		log.Println("Cmd Log: ", out.String())
 	}(luaStr)
 
 	ctx.JSON(200, map[string]interface{}{
