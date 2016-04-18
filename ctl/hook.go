@@ -24,8 +24,11 @@ func Hook(ctx *macaron.Context) {
 			var form mode.GithubHook
 			e = json.Unmarshal(req, &form)
 			if e == nil && verification(form) {
-				//更新
+				//pull & restart
 				luaStr = "./lua/hook.lua"
+			} else if e == nil {
+				//pull
+				luaStr = "./lua/hookpull.lua"
 			}
 		} else {
 			log.Println(e)
@@ -33,7 +36,7 @@ func Hook(ctx *macaron.Context) {
 	} else {
 		data, e := ioutil.ReadFile("github_hook.conf")
 		if e == nil {
-			conf = mode.MakeConf(data)
+			conf := mode.MakeConf(data)
 			for _, item := range conf {
 				if item.Name == repo {
 					luaStr = item.DoLua
