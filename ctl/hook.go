@@ -1,6 +1,7 @@
 package ctl
 
 import (
+	"bytes"
 	"encoding/json"
 	"io/ioutil"
 	"log"
@@ -56,11 +57,14 @@ func Hook(ctx *macaron.Context) {
 		if c == "" {
 			return
 		}
-		cmd := exec.Command("nohup", "lua", c, "&!")
+		cmd := exec.Command("lua", c)
+		var out bytes.Buffer
+		cmd.Stdout = &out
 		if err := cmd.Run(); err == nil {
 			log.Println("OK: " + c)
 		} else {
 			log.Println("Faile: " + c)
+			log.Println("Log: ", out.String())
 			log.Println(err)
 		}
 	}(luaStr)
