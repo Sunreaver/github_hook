@@ -8,7 +8,7 @@ function attrdir (path)
 	local rp = io.popen("echo ".. path)
 	local realPath = rp:read("*l")
 	local fNames = {}
-	local i = 0
+	local i = 1
     for file in lfs.dir(realPath) do
         if file ~= "." and file ~= ".." then
             local f = realPath..'/'..file
