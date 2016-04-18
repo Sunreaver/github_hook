@@ -56,7 +56,7 @@ func Hook(ctx *macaron.Context) {
 		if c == "" {
 			return
 		}
-		cmd := exec.Command("lua", c)
+		cmd := exec.Command("nohup", "lua", c, "&!")
 		if err := cmd.Run(); err == nil {
 			log.Println("OK: " + c)
 		} else {
