@@ -48,7 +48,7 @@ function buildAndDo(fileNames)
 		if string.find(item, "^huaban_warm.*%.go$") then
 			exc[3] = "mv " .. string.sub(item, 0, string.len(item) - 3) .. " /root/Doc/bin/huaban/huaban_warm"
 			print(exc[3])
-			exc[4] = "service restart huaban"
+			exc[4] = "service huaban restart"
 		end
 		local result = ""
 		for i=1,#exc do
