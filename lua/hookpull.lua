@@ -39,6 +39,6 @@ print("pull...")
 gitpull()
 -- print("kill...")
 -- killprog("github_hook")
-print("restart...")
-restart()
+-- print("restart...")
+-- restart()
 
