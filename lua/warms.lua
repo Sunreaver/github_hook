@@ -13,15 +13,16 @@ function attrdir (path)
         if file ~= "." and file ~= ".." then
             local f = realPath..'/'..file
             local attr = lfs.attributes (f)
-            -- print(type(attr))
-            assert (type(attr) == "table")
-            -- if attr.mode == "directory" then
-            if attr.mode == "file" then
-				if string.find(file, "^.+%.go$") then
-					fNames[i] = file
-					i = i + 1
+            if type(attr) == table then
+	            -- assert (type(attr) == "table")
+	            -- if attr.mode == "directory" then
+	            if attr.mode == "file" then
+					if string.find(file, "^.+%.go$") then
+						fNames[i] = file
+						i = i + 1
+					end
 				end
-			end
+            end
         end
     end
     return fNames
