@@ -13,7 +13,7 @@ type Conf struct {
 // MakeConf CreateConf
 func MakeConf(data []byte) []Conf {
 	var c []Conf
-	e := json.Unmarshal(data, c)
+	e := json.Unmarshal(data, &c)
 	if e != nil {
 		c = []Conf{}
 	}
