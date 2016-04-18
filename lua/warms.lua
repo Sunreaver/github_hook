@@ -29,10 +29,10 @@ end
 
 function gitpull()
 	local exc = {}
-	exc[0] = "cd " .. DIR_WARMS
-	exc[1] = "git pull"
+	exc[1] = "cd " .. DIR_WARMS
+	exc[2] = "git pull"
 	local result = ""
-	for i=0,table.maxn(exc) do
+	for i=1,#exc do
 		result = result .. exc[i] .. ";"
 	end
 	r = string.sub(result, 0, string.len(result)-1)
@@ -41,15 +41,15 @@ end
 
 function buildAndDo(fileNames)
 	local exc = {}
-	exc[0] = "cd " .. DIR_WARMS
+	exc[1] = "cd " .. DIR_WARMS
 	for j,item in pairs(fileNames) do
-		exc[1] = "go build " .. item
+		exc[2] = "go build " .. item
 		print(item)
 		if string.find(item, "^huaban_warm%.go$") then
-			exc[2] = "mv " .. string.sub(item, 0, string.len(item) - 3) .. " ~/Doc/bin/huaban/huaban_warm"
+			exc[3] = "mv " .. string.sub(item, 0, string.len(item) - 3) .. " ~/Doc/bin/huaban/huaban_warm"
 		end
 		local result = ""
-		for i,it in pairs(exc) do
+		for i=1,#exc do
 			result = result .. it .. ";"
 		end
 		r = string.sub(result, 0, string.len(result)-1)
@@ -58,7 +58,7 @@ function buildAndDo(fileNames)
 end
 
 -- do
--- gitpull()
+gitpull()
 local fns = attrdir(DIR_WARMS)
 assert(type(fns) == "table")
 buildAndDo(fns)
