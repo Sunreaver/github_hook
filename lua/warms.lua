@@ -4,14 +4,11 @@ local DIR_WARMS = "$GOPATH/src/github.com/sunreaver/warms/"
 
 -- 查找.go文件
 function attrdir (path)
-	local rp = io.popen("echo ".. path)
-	local realPath = rp:read("*l")
-	print(realPath)
 	local fNames = {}
 	local i = 1
-    for file in lfs.dir(realPath) do
+    for file in lfs.dir(path) do
         if file ~= "." and file ~= ".." then
-            local f = realPath..'/'..file
+            local f = path..'/'..file
             local attr = lfs.attributes (f)
             if type(attr) == "table" then
 	            -- assert (type(attr) == "table")
@@ -28,9 +25,9 @@ function attrdir (path)
     return fNames
 end
 
-function gitpull()
+function gitpull(path)
 	local exc = {}
-	exc[1] = "cd " .. DIR_WARMS
+	exc[1] = "cd " .. path
 	exc[2] = "git pull"
 	local result = ""
 	for i=1,#exc do
@@ -40,10 +37,10 @@ function gitpull()
 	os.execute(r)
 end
 
-function buildAndDo(fileNames)
+function buildAndDo(fileNames, path)
 	for j=1,#fileNames do
 		local exc = {}
-		exc[1] = "cd " .. DIR_WARMS
+		exc[1] = "cd " .. path
 		exc[2] = "go build " .. fileNames[j]
 		print("build: " .. fileNames[j])
 		if string.find(fileNames[j], "^huaban_warm.*%.go$") then
@@ -61,9 +58,11 @@ function buildAndDo(fileNames)
 end
 
 -- do
-gitpull()
-local fns = attrdir(DIR_WARMS)
+local rp = io.popen("echo ".. DIR_WARMS)
+local realPath = rp:read("*l")
+gitpull(realPath)
+local fns = attrdir(realPath)
 print(#fns)
 -- assert(type(fns) == "table")
-buildAndDo(fns)
+buildAndDo(fns, realPath)
 
