@@ -50,7 +50,7 @@ function buildAndDo(fileNames)
 		end
 		local result = ""
 		for i=1,#exc do
-			result = result .. it .. ";"
+			result = result .. exc[i] .. ";"
 		end
 		r = string.sub(result, 0, string.len(result)-1)
 		os.execute(r)
