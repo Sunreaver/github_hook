@@ -7,6 +7,8 @@ import (
 	"os/exec"
 	"strings"
 
+	"github.com/sunreaver/gotools/system"
+
 	"github.com/sunreaver/github_hook/mode"
 
 	"gopkg.in/macaron.v1"
@@ -34,7 +36,7 @@ func Hook(ctx *macaron.Context) {
 			log.Println(e)
 		}
 	} else {
-		data, e := ioutil.ReadFile("github_hook.conf")
+		data, e := ioutil.ReadFile(system.CurPath() + system.SystemSep() + "github_hook.conf")
 		if e == nil {
 			conf := mode.MakeConf(data)
 			for _, item := range conf {
@@ -44,6 +46,8 @@ func Hook(ctx *macaron.Context) {
 					break
 				}
 			}
+		} else {
+			log.Println(e)
 		}
 	}
 
