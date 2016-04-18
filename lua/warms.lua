@@ -1,1 +1,65 @@
-print("warms lua")
+
+DIR_WARMS = "$GOPATH/src/github.com/sunreaver/warms/"
+
+local lfs = require"lfs"
+
+-- 查找.go文件
+function attrdir (path)
+	local rp = io.popen("echo ".. path)
+	local realPath = rp:read("*l")
+	local fNames = {}
+	local i = 0
+    for file in lfs.dir(realPath) do
+        if file ~= "." and file ~= ".." then
+            local f = realPath..'/'..file
+            local attr = lfs.attributes (f)
+            -- print(type(attr))
+            assert (type(attr) == "table")
+            -- if attr.mode == "directory" then
+            if attr.mode == "file" then
+				if string.find(file, "^.+%.go$") then
+					fNames[i] = file
+					i = i + 1
+				end
+			end
+        end
+    end
+    return fNames
+end
+
+function gitpull()
+	local exc = {}
+	exc[0] = "cd " .. DIR_WARMS
+	exc[1] = "git pull"
+	local result = ""
+	for i=0,table.maxn(exc) do
+		result = result .. exc[i] .. ";"
+	end
+	r = string.sub(result, 0, string.len(result)-1)
+	os.execute(r)
+end
+
+function buildAndDo(fileNames)
+	local exc = {}
+	exc[0] = "cd " .. DIR_WARMS
+	for j,item in pairs(fileNames) do
+		exc[1] = "go build " .. item
+		print(item)
+		if string.find(item, "^huaban_warm%.go$") then
+			exc[2] = "mv " .. string.sub(item, 0, string.len(item) - 3) .. " ~/Doc/bin/huaban/huaban_warm"
+		end
+		local result = ""
+		for i=0,table.maxn(exc) do
+			result = result .. exc[i] .. ";"
+		end
+		r = string.sub(result, 0, string.len(result)-1)
+		os.execute(r)
+	end
+end
+
+-- do
+-- gitpull()
+local fns = attrdir(DIR_WARMS)
+assert(type(fns) == "table")
+buildAndDo(fns)
+
