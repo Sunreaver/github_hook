@@ -19,8 +19,9 @@ function restart(...)
 	local exc = {}
 	exc[0] = "cd " .. DIR_MYSERVER
 	exc[1] = "go build"
-	exc[2] = "mv myserver ~/Doc/bin/"
-	exc[3] = "service myserver.d restart"
+	exc[2] = "cp myserver.d /etc/init.d/myserver.d"
+	exc[3] = "mv myserver ~/Doc/bin/"
+	exc[4] = "service myserver.d restart"
 	local result = ""
 	for i=0,table.maxn(exc) do
 		result = result .. exc[i] .. ";"
