@@ -11,11 +11,11 @@ type Conf struct {
 }
 
 // MakeConf CreateConf
-func MakeConf(data []byte) (c []Conf) {
+func MakeConf(data []byte) []Conf {
+	var c []Conf
 	e := json.Unmarshal(data, c)
 	if e != nil {
 		c = []Conf{}
-		return
 	}
-	return
+	return c
 }

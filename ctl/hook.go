@@ -39,6 +39,7 @@ func Hook(ctx *macaron.Context) {
 		data, e := ioutil.ReadFile(system.CurPath() + system.SystemSep() + "github_hook.conf")
 		if e == nil {
 			conf := mode.MakeConf(data)
+			log.Println("Conf : ", conf)
 			for _, item := range conf {
 				if item.Name == repo {
 					luaStr = item.DoLua
