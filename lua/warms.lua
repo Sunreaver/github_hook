@@ -55,7 +55,7 @@ function buildAndDo(fileNames, path)
 			exc[3] = "mv " .. fn .. " /root/Doc/bin/stock/stockwarm"
 			exc[4] = "cp stock.json /root/Doc/bin/stock/"
 		end
-		exc[#exc + 1] = string.format("echo \"%s : Updated\" >> autoUpdate.log", fn)
+		exc[#exc + 1] = string.format("echo \"%s : Updated At %s\" >> autoUpdate.log", fn, os.date("%Y-%m-%d %H:%M:%S"))
 		local result = ""
 		for i=1,#exc do
 			result = result .. exc[i] .. ";"
