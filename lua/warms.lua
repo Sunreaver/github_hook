@@ -54,10 +54,8 @@ function buildAndDo(fileNames, path)
 		elseif string.find(fileNames[j], "^stock_warms%.go$") then
 			exc[3] = "mv " .. fn .. " /root/Doc/bin/stock/stockwarm"
 			exc[4] = "cp stock.json /root/Doc/bin/stock/"
-		else
-			exc[3] = "rm ./" .. fn .. "_*"
-			exc[4] = "mv " .. fn .. " ./" .. fn .. os.date("%Y-%m-%d_%H:%M:%S")
 		end
+		exc[#exc + 1] = string.format("echo \"%s : Updated\" >> autoUpdate.log", fn)
 		local result = ""
 		for i=1,#exc do
 			result = result .. exc[i] .. ";"
