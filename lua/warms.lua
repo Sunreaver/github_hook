@@ -50,7 +50,6 @@ function buildAndDo(fileNames, path)
 			exc[3] = "mv " .. string.sub(fileNames[j], 0, string.len(fileNames[j]) - 3) .. " /root/Doc/bin/stock/stockwarm"
 			exc[4] = "cp stock.json /root/Doc/bin/stock/"
 		end
-		end
 		local result = ""
 		for i=1,#exc do
 			result = result .. exc[i] .. ";"
