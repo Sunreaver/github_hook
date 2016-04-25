@@ -58,7 +58,7 @@ func Hook(ctx *macaron.Context) {
 			return
 		}
 		cmd := exec.Command("lua", c)
-		var out bytes.Buffer
+		out := bytes.Buffer{}
 		cmd.Stdout = &out
 		if err := cmd.Run(); err == nil {
 			log.Println("OK: " + c)
