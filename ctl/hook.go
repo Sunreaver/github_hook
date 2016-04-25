@@ -28,10 +28,10 @@ func Hook(ctx *macaron.Context) {
 			e = json.Unmarshal(req, &form)
 			if e == nil && verification(form) {
 				//pull & restart
-				luaStr = "./lua/hook.lua"
+				luaStr = "lua/hook.lua"
 			} else if e == nil {
 				//pull
-				luaStr = "./lua/hookpull.lua"
+				luaStr = "lua/hookpull.lua"
 			}
 		} else {
 			log.Println(e)
@@ -57,7 +57,8 @@ func Hook(ctx *macaron.Context) {
 		if c == "" {
 			return
 		}
-		cmd := exec.Command("lua", c)
+		c = system.CurPath() + system.SystemSep() + c
+		cmd := exec.Command("/usr/local/bin/lua", c)
 		out := bytes.Buffer{}
 		cmd.Stdout = &out
 		if err := cmd.Run(); err == nil {
