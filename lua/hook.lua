@@ -26,7 +26,8 @@ function restart(...)
 	local exc = {}
 	exc[1] = "cd " .. DIR_GITHOOK
 	exc[2] = "go build"
-	exc[3] = "nohup ./github_hook >>nohup.out 2>&1 &"
+	exc[3] = "mv github_hook github_hook_run"
+	exc[4] = "nohup ./github_hook_run >>nohup.out 2>&1 &"
 	local result = ""
 	for i=1,table.maxn(exc) do
 		result = result .. exc[i] .. ";"
@@ -37,7 +38,7 @@ end
 print("pull...")
 gitpull()
 print("kill...")
-killprog("github_hook")
+killprog("github_hook_run")
 print("restart...")
 restart()
 
