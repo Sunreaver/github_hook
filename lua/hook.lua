@@ -41,4 +41,5 @@ print("kill...")
 killprog("github_hook_run")
 print("restart...")
 restart()
+print(string.format([[↑ DO AT: %s]], os.date("%Y-%m-%d %H:%M:%S")))
 

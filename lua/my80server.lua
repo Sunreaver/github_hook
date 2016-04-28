@@ -33,4 +33,5 @@ print("pull...")
 gitpull()
 print("restart...")
 restart()
+print(string.format([[↑ DO AT: %s]], os.date("%Y-%m-%d %H:%M:%S")))
 

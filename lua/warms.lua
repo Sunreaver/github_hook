@@ -70,7 +70,7 @@ local rp = io.popen("echo ".. DIR_WARMS)
 local realPath = rp:read("*l")
 gitpull(realPath)
 local fns = attrdir(realPath)
-print(#fns)
 -- assert(type(fns) == "table")
 buildAndDo(fns, realPath)
+print(string.format([[↑ DO AT: %s]], os.date("%Y-%m-%d %H:%M:%S")))
 
