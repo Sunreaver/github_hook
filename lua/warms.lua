@@ -55,7 +55,7 @@ function buildAndDo(fileNames, path)
 			exc[3] = "mv " .. fn .. " /root/Doc/bin/stock/stockwarm"
 			exc[4] = "cp stock.json /root/Doc/bin/stock/"
 		end
-		exc[#exc + 1] = string.format("/bin/echo \"%s : Updated At %s\" >> autoUpdate.log", fn, os.date("%Y-%m-%d %H:%M:%S"))
+		exc[#exc + 1] = string.format("echo \"%s : Updated At %s\" >> autoUpdate.log", fn, os.date("%Y-%m-%d %H:%M:%S"))
 		local result = ""
 		for i=1,#exc do
 			result = result .. exc[i] .. ";"
@@ -66,8 +66,9 @@ function buildAndDo(fileNames, path)
 end
 
 -- do
-local rp = io.popen("/bin/echo " .. DIR_WARMS)
-local realPath = rp:read("*l")
+-- local rp = io.popen("echo " .. DIR_WARMS)
+-- local realPath = rp:read("*l")
+local realPath = "/root/gopkg/src/github.com/sunreaver/warms/"
 gitpull(realPath)
 local fns = attrdir(realPath)
 -- assert(type(fns) == "table")
