@@ -9,7 +9,7 @@ function attrdir (path)
     for file in lfs.dir(path) do
         if file ~= "." and file ~= ".." then
             local f = path..'/'..file
-            local attr = lfs.attributes (f)
+            local attr = lfs.attributes(f)
             if type(attr) == "table" then
 	            -- assert (type(attr) == "table")
 	            -- if attr.mode == "directory" then
@@ -66,12 +66,15 @@ function buildAndDo(fileNames, path)
 end
 
 -- do
--- local rp = io.popen("echo " .. DIR_WARMS)
--- local realPath = rp:read("*l")
-local realPath = "/root/gopkg/src/github.com/sunreaver/warms/"
+print("start")
+local rp = io.popen("echo " .. DIR_WARMS)
+local realPath = rp:read("*l")
+print("pull")
 gitpull(realPath)
+print("get files")
 local fns = attrdir(realPath)
 -- assert(type(fns) == "table")
+print("buildAndDo")
 buildAndDo(fns, realPath)
 print(string.format([[↑ DO AT: %s]], os.date("%Y-%m-%d %H:%M:%S")))
 
