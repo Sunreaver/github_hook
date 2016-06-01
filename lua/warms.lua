@@ -67,8 +67,9 @@ end
 
 -- do
 print("start")
-local rp = io.popen("echo " .. DIR_WARMS)
-local realPath = rp:read("*l")
+-- local rp = io.popen("echo " .. DIR_WARMS)
+-- local realPath = rp:read("*l")
+local realPath = "/root/gopkg/src/github.com/sunreaver/warms/"
 print("pull")
 -- gitpull(realPath)
 -- print("get files")
