@@ -66,16 +66,11 @@ function buildAndDo(fileNames, path)
 end
 
 -- do
-print("start")
--- local rp = io.popen("echo " .. DIR_WARMS)
--- local realPath = rp:read("*l")
-local realPath = "/root/gopkg/src/github.com/sunreaver/warms/"
-print("pull")
--- gitpull(realPath)
--- print("get files")
--- local fns = attrdir(realPath)
--- -- assert(type(fns) == "table")
--- print("buildAndDo")
--- buildAndDo(fns, realPath)
--- print(string.format([[↑ DO AT: %s]], os.date("%Y-%m-%d %H:%M:%S")))
+local rp = io.popen("echo " .. DIR_WARMS)
+local realPath = rp:read("*l")
+gitpull(realPath)
+local fns = attrdir(realPath)
+-- assert(type(fns) == "table")
+buildAndDo(fns, realPath)
+print(string.format([[↑ DO AT: %s]], os.date("%Y-%m-%d %H:%M:%S")))
 
